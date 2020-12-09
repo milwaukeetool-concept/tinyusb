@@ -106,7 +106,7 @@ static void _ff_push_n(tu_fifo_t* f, void const * data, uint16_t n, uint16_t wRe
     memcpy(f->buffer + (wRel * f->item_size), data, nLin*f->item_size);
 
     // Write data wrapped around
-    memcpy(f->buffer, data + nLin*f->item_size, (n - nLin) * f->item_size);
+    memcpy(f->buffer, (char const *)data + nLin * f->item_size, (n - nLin) * f->item_size);
   }
 }
 
@@ -131,7 +131,7 @@ static void _ff_pull_n(tu_fifo_t* f, void * p_buffer, uint16_t n, uint16_t rRel)
     memcpy(p_buffer, f->buffer + (rRel * f->item_size), nLin*f->item_size);
 
     // Read data wrapped part
-    memcpy(p_buffer + nLin*f->item_size, f->buffer, (n - nLin) * f->item_size);
+    memcpy((char *)p_buffer + nLin * f->item_size, f->buffer, (n - nLin) * f->item_size);
   }
 }
 
